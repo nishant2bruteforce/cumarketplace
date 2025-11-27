@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CU Marketplace | The Gen Z Campus Hub</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* -----------------------------------------------------------
+           1. CSS VARIABLES & RESET
+        ----------------------------------------------------------- */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #1f2933;
+            --accent: #22c55e;
+            --bg-body: #f9fafb;
+            --bg-surface: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--secondary);
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button, input, select, textarea { font-family: inherit; border: none; outline: none; }
+
+        /* Utilities */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding { padding: 80px 0; }
+        .text-center { text-align: center; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .grid { display: grid; }
+        .gap-4 { gap: 1rem; }
+        .gap-8 { gap: 2rem; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.23);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title span { color: var(--primary); }
+        .section-subtitle {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+        }
+
+        /* -----------------------------------------------------------
+           2. NAVBAR
+        ----------------------------------------------------------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            height: 70px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-muted);
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--primary); }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .nav-actions { display: flex; gap: 15px; }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary); }
+
+        /* -----------------------------------------------------------
+           3. HERO SECTION
+        ----------------------------------------------------------- */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 100px;
+            background: radial-gradient(circle at 10% 20%, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 90%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #bfdbfe; }
+        .blob-2 { bottom: 10%; right: -10%; width: 400px; height: 400px; background: #bbf7d0; }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 10px;
+            border-radius: 100px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+
+        .search-box select {
+            padding: 0 20px;
+            border-right: 1px solid var(--border);
+            color: var(--text-main);
+            font-weight: 500;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            padding: 12px 30px;
+            border-radius: 50px;
+        }
+
+        /* -----------------------------------------------------------
+           4. STATS BAR
+        ----------------------------------------------------------- */
+        .stats-section {
+            background: white;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 40px 0;
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .stat-item p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* -----------------------------------------------------------
+           5. CATEGORIES
+        ----------------------------------------------------------- */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+        }
+
+        .cat-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .cat-icon {
+            width: 60px;
+            height: 60px;
+            background: #eff6ff;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 15px;
+            transition: var(--transition);
+        }
+
+        .cat-card:hover .cat-icon {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .cat-card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+        .cat-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
+        .cat-link { color: var(--primary); font-weight: 600; font-size: 0.9rem; }
+
+        /* -----------------------------------------------------------
+           6. LISTINGS & FILTERS
+        ----------------------------------------------------------- */
+        .filter-bar {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filter-inputs { display: flex; gap: 15px; flex-wrap: wrap; flex: 1; }
+        
+        .filter-input, .filter-select {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: 150px;
+        }
+
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .listing-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-img {
+            height: 180px;
+            background: #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .listing-card:hover .card-img img { transform: scale(1.05); }
+
+        .badge-top {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .badge-verified {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .vendor-name { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+        .listing-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--secondary); }
+        
+        .rating { color: #f59e0b; font-size: 0.9rem; margin-bottom: 15px; }
+        .rating span { color: var(--text-muted); font-size: 0.8rem; margin-left: 5px; }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        .price { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+
+        /* -----------------------------------------------------------
+           7. VENDORS & OTHER SECTIONS
+        ----------------------------------------------------------- */
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .vendor-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+        .vendor-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+
+        .vendor-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            object-fit: cover;
+        }
+
+        .vendor-info h4 { font-size: 1.1rem; margin-bottom: 4px; }
+        .vendor-tags span {
+            font-size: 0.75rem;
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        /* How it works */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        .step-card { position: relative; }
+        .step-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #f3f4f6;
+            line-height: 1;
+            margin-bottom: -20px;
+            position: relative;
+            z-index: 0;
+        }
+        .step-content { position: relative; z-index: 1; }
+        .step-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .testimonial-card {
+            background: var(--bg-surface);
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+        .quote-icon { color: var(--primary); font-size: 1.5rem; margin-bottom: 15px; opacity: 0.5; }
+        .user-profile { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
+        .user-img { width: 45px; height: 45px; border-radius: 50%; background: #ccc; }
+
+        /* FAQ */
+        .accordion { max-width: 800px; margin: 0 auto; }
+        .accordion-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .accordion-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .accordion-header:hover { background: #f9fafb; }
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            color: var(--text-muted);
+        }
+        .accordion-content p { padding-bottom: 20px; }
+        .accordion-item.active .accordion-content { max-height: 200px; }
+        .accordion-item.active .fa-chevron-down { transform: rotate(180deg); }
+
+        /* Contact */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: white;
+            padding: 50px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 5px; display: none; }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 15px; display: block; }
+        .footer-logo span { color: var(--primary); }
+        .footer-col h4 { color: white; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #9ca3af; transition: 0.2s; }
+        .footer-links a:hover { color: white; padding-left: 5px; }
+        
+        .social-icons { display: flex; gap: 15px; }
+        .social-icons a {
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        .social-icons a:hover { background: var(--primary); transform: translateY(-3px); }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* -----------------------------------------------------------
+           RESPONSIVE MEDIA QUERIES
+        ----------------------------------------------------------- */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.8rem; }
+            .stats-grid, .steps-container { grid-template-columns: 1fr; gap: 30px; }
+            .contact-wrapper { grid-template-columns: 1fr; padding: 30px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar .nav-links, .navbar .nav-actions { display: none; }
+            .navbar .hamburger { display: block; }
+            
+            /* Mobile Menu */
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 20px;
+                box-shadow: var(--shadow-lg);
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .hero { padding-top: 120px; }
+            .hero h1 { font-size: 2.2rem; }
+            .search-box { flex-direction: column; padding: 15px; border-radius: 20px; }
+            .search-box select { border-right: none; border-bottom: 1px solid var(--border); margin-bottom: 10px; padding: 10px; width: 100%; }
+            .search-box button { width: 100%; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-inputs { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">CU <span>Marketplace</span></a>
+            
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#categories" class="nav-link">Categories</a></li>
+                <li><a href="#listings" class="nav-link">Listings</a></li>
+                <li><a href="#vendors" class="nav-link">Vendors</a></li>
+                <li><a href="#about-faq" class="nav-link">About</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="btn btn-outline" style="padding: 8px 20px;">Log In</button>
+                <button class="btn btn-primary" style="padding: 8px 20px;">Join Now</button>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        
+        <div class="container hero-content">
+            <div class="hero-badge">🚀 The #1 Student Marketplace</div>
+            <h1>Discover & Compare Best <br><span>Campus Services</span></h1>
+            <p>Find hostels, electronics, coaching, and freelance gigs tailored for university students. Verified vendors, transparent pricing, and instant connections.</p>
+            
+            <div class="search-box">
+                <select id="hero-category">
+                    <option value="all">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="hostel">Hostels</option>
+                    <option value="coaching">Coaching</option>
+                </select>
+                <input type="text" id="hero-search" placeholder="What are you looking for? (e.g. 'Laptop repair')">
+                <button class="btn btn-primary" onclick="scrollTolistings()">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section" id="stats">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h3 data-target="200">0</h3>
+                <p>Verified Vendors</p>
+            </div>
+            <div class="stat-item">
+                <h3 data-target="1500">0</h3>
+                <p>Services Listed</p>
+            </div>
+            <div class="stat-item">
+                <h3 data-target="50000">0</h3>
+                <p>Happy Students</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="categories" class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Popular <span>Categories</span></h2>
+                <p class="section-subtitle">Everything you need to survive and thrive on campus.</p>
+            </div>
+
+            <div class="categories-grid">
+                <div class="cat-card" onclick="filterByCategory('electronics')">
+                    <div class="cat-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h4>Electronics</h4>
+                    <p>Laptops, repairs & accessories</p>
+                    <span class="cat-link">View Listings <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="cat-card" onclick="filterByCategory('stationery')">
+                    <div class="cat-icon"><i class="fa-solid fa-pen-ruler"></i></div>
+                    <h4>Stationery</h4>
+                    <p>Books, prints & supplies</p>
+                    <span class="cat-link">View Listings <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="cat-card" onclick="filterByCategory('hostel')">
+                    <div class="cat-icon"><i class="fa-solid fa-bed"></i></div>
+                    <h4>Hostels/PG</h4>
+                    <p>Find your next home</p>
+                    <span class="cat-link">View Listings <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="cat-card" onclick="filterByCategory('coaching')">
+                    <div class="cat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h4>Coaching</h4>
+                    <p>Tutors & online courses</p>
+                    <span class="cat-link">View Listings <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="cat-card" onclick="filterByCategory('freelancing')">
+                    <div class="cat-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <h4>Freelance</h4>
+                    <p>Gigs & internships</p>
+                    <span class="cat-link">View Listings <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="cat-card" onclick="filterByCategory('repairs')">
+                    <div class="cat-icon"><i class="fa-solid fa-wrench"></i></div>
+                    <h4>Repairs</h4>
+                    <p>Bike & gadget fixes</p>
+                    <span class="cat-link">View Listings <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="listings" class="section-padding" style="background: #f3f4f6;">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Featured <span>Listings</span></h2>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-inputs">
+                    <input type="text" id="search-input" class="filter-input" placeholder="Search services...">
+                    <select id="category-select" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="stationery">Stationery</option>
+                        <option value="hostel">Hostels</option>
+                        <option value="coaching">Coaching</option>
+                    </select>
+                    <select id="rating-select" class="filter-select">
+                        <option value="0">Any Rating</option>
+                        <option value="4">4+ Stars</option>
+                        <option value="4.5">4.5+ Stars</option>
+                    </select>
+                </div>
+                <div id="result-count" style="color: var(--text-muted); font-size: 0.9rem;">Showing 8 results</div>
+            </div>
+
+            <div class="listings-grid" id="listings-container">
+                <div class="listing-card" data-category="electronics" data-rating="4.8">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&q=80&w=400" alt="Laptop">
+                        <span class="badge-verified"><i class="fa-solid fa-check-circle"></i> VERIFIED</span>
+                        <span class="badge-top">Top Rated</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">Tech Wizards</div>
+                        <h3 class="listing-title">MacBook & Laptop Chip Level Repair</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            <span>(4.8)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹499 onwards</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing-card" data-category="hostel" data-rating="4.5">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=400" alt="Hostel">
+                        <span class="badge-verified"><i class="fa-solid fa-check-circle"></i> VERIFIED</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">Comfort Living</div>
+                        <h3 class="listing-title">Luxury PG with AC & WiFi</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            <span>(4.5)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹8,000 /mo</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing-card" data-category="coaching" data-rating="4.9">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=400" alt="Coaching">
+                        <span class="badge-top">Popular</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">Code Masters</div>
+                        <h3 class="listing-title">Full Stack Web Dev Bootcamp</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span>(4.9)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹4,999</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing-card" data-category="stationery" data-rating="4.2">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1501556466850-7c96197a3360?auto=format&fit=crop&q=80&w=400" alt="Stationery">
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">Campus Corner</div>
+                        <h3 class="listing-title">Engineering Drawing Kits</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                            <span>(4.2)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹350</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing-card" data-category="electronics" data-rating="4.7">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&q=80&w=400" alt="Gadgets">
+                        <span class="badge-verified"><i class="fa-solid fa-check-circle"></i> VERIFIED</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">AudioHub</div>
+                        <h3 class="listing-title">Premium Noise Cancelling Headphones</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            <span>(4.7)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹1,200</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing-card" data-category="hostel" data-rating="4.0">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=400" alt="Apartment">
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">Student Nests</div>
+                        <h3 class="listing-title">2BHK Flat near Gate 2</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                            <span>(4.0)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹12,000 /mo</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="listing-card" data-category="coaching" data-rating="4.6">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=400" alt="Tutor">
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">Ace Grades</div>
+                        <h3 class="listing-title">Mathematics Tuition (Sem 1-4)</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            <span>(4.6)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹1,500 /mo</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="listing-card" data-category="stationery" data-rating="4.9">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=400" alt="Printing">
+                        <span class="badge-verified"><i class="fa-solid fa-check-circle"></i> VERIFIED</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vendor-name">Print Fast</div>
+                        <h3 class="listing-title">Project Binding & Laser Printing</h3>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span>(4.9)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹2 /page</span>
+                            <button class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vendors" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Top Rated <span>Vendors</span></h2>
+            <div class="vendor-grid">
+                <div class="vendor-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Vendor" class="vendor-avatar">
+                    <div class="vendor-info">
+                        <h4>Rajesh Electronics</h4>
+                        <div class="vendor-tags">
+                            <span>Electronics</span> <span>Repair</span>
+                        </div>
+                        <div class="rating" style="margin-top:5px; font-size:0.8rem;"><i class="fa-solid fa-star"></i> 4.8</div>
+                    </div>
+                    <button class="btn btn-outline" style="margin-left:auto; padding:8px 15px;"><i class="fa-solid fa-user"></i></button>
+                </div>
+                <div class="vendor-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Vendor" class="vendor-avatar">
+                    <div class="vendor-info">
+                        <h4>Priya's Art Store</h4>
+                        <div class="vendor-tags">
+                            <span>Stationery</span> <span>Art</span>
+                        </div>
+                        <div class="rating" style="margin-top:5px; font-size:0.8rem;"><i class="fa-solid fa-star"></i> 4.9</div>
+                    </div>
+                    <button class="btn btn-outline" style="margin-left:auto; padding:8px 15px;"><i class="fa-solid fa-user"></i></button>
+                </div>
+                <div class="vendor-card">
+                    <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Vendor" class="vendor-avatar">
+                    <div class="vendor-info">
+                        <h4>Singh Properties</h4>
+                        <div class="vendor-tags">
+                            <span>Hostel</span> <span>Rent</span>
+                        </div>
+                        <div class="rating" style="margin-top:5px; font-size:0.8rem;"><i class="fa-solid fa-star"></i> 4.5</div>
+                    </div>
+                    <button class="btn btn-outline" style="margin-left:auto; padding:8px 15px;"><i class="fa-solid fa-user"></i></button>
+                </div>
+                 <div class="vendor-card">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Vendor" class="vendor-avatar">
+                    <div class="vendor-info">
+                        <h4>EduPoint Tutors</h4>
+                        <div class="vendor-tags">
+                            <span>Coaching</span>
+                        </div>
+                        <div class="rating" style="margin-top:5px; font-size:0.8rem;"><i class="fa-solid fa-star"></i> 4.7</div>
+                    </div>
+                    <button class="btn btn-outline" style="margin-left:auto; padding:8px 15px;"><i class="fa-solid fa-user"></i></button>
+                </div>
+                 <div class="vendor-card">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Vendor" class="vendor-avatar">
+                    <div class="vendor-info">
+                        <h4>Fast Bytes</h4>
+                        <div class="vendor-tags">
+                            <span>Food</span> <span>Catering</span>
+                        </div>
+                        <div class="rating" style="margin-top:5px; font-size:0.8rem;"><i class="fa-solid fa-star"></i> 4.2</div>
+                    </div>
+                    <button class="btn btn-outline" style="margin-left:auto; padding:8px 15px;"><i class="fa-solid fa-user"></i></button>
+                </div>
+                 <div class="vendor-card">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Vendor" class="vendor-avatar">
+                    <div class="vendor-info">
+                        <h4>Style Cuts</h4>
+                        <div class="vendor-tags">
+                            <span>Salon</span>
+                        </div>
+                        <div class="rating" style="margin-top:5px; font-size:0.8rem;"><i class="fa-solid fa-star"></i> 4.8</div>
+                    </div>
+                    <button class="btn btn-outline" style="margin-left:auto; padding:8px 15px;"><i class="fa-solid fa-user"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section-padding" style="background: var(--bg-surface);">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">How It <span>Works</span></h2>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <i class="fa-solid fa-magnifying-glass step-icon"></i>
+                        <h3>Search</h3>
+                        <p class="text-muted">Browse through hundreds of categories and find exactly what you need on campus.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <i class="fa-solid fa-code-compare step-icon"></i>
+                        <h3>Compare</h3>
+                        <p class="text-muted">Check ratings, reviews, and prices from different vendors to get the best deal.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <i class="fa-solid fa-handshake step-icon"></i>
+                        <h3>Connect</h3>
+                        <p class="text-muted">Contact the vendor directly and avail the service seamlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Student <span>Stories</span></h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p>I found a perfect PG near the university within 2 hours of searching here. The verified badge gave me confidence.</p>
+                    <div class="user-profile">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="user-img" alt="User">
+                        <div>
+                            <h5>Ananya Verma</h5>
+                            <small>CS Student</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p>My laptop crashed during finals. Found a repair shop nearby, checked the prices, and got it fixed the same day!</p>
+                    <div class="user-profile">
+                        <img src="https://randomuser.me/api/portraits/men/52.jpg" class="user-img" alt="User">
+                        <div>
+                            <h5>Rohan Das</h5>
+                            <small>MBA Student</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p>As a vendor, this platform has doubled my customer base. Students love the transparent pricing.</p>
+                    <div class="user-profile">
+                        <img src="https://randomuser.me/api/portraits/men/33.jpg" class="user-img" alt="User">
+                        <div>
+                            <h5>Vikram Singh</h5>
+                            <small>Vendor (Stationery)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-faq" class="section-padding" style="background: white;">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">About & <span>FAQ</span></h2>
+                <p class="section-subtitle">We are on a mission to digitize the campus economy.</p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Is CU Marketplace free for students?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Yes! Browsing listings, comparing prices, and contacting vendors is 100% free for all students.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        How do I verify if a vendor is genuine?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Look for the "VERIFIED" badge. This means our team has physically checked the vendor's shop and credentials.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Can I list my old books or gadgets?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Currently, we only allow registered local businesses. However, a peer-to-peer student exchange feature is coming soon!</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        How does the rating system work?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Ratings are crowd-sourced from students who have actually used the services. We monitor for spam reviews.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        I am a vendor. How do I join?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Click on "Join Now" in the navbar, fill out the vendor application form, and our team will contact you within 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding" style="background: #f3f4f6;">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Get In <span>Touch</span></h2>
+                <p class="section-subtitle">Have questions or feedback? Drop us a line.</p>
+            </div>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p class="text-muted" style="margin-bottom: 20px;">We are always ready to help you.</p>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-location-dot" style="color: var(--primary); margin-right: 10px;"></i>
+                        Chandigarh University, Mohali
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-envelope" style="color: var(--primary); margin-right: 10px;"></i>
+                        support@cumarketplace.in
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-phone" style="color: var(--primary); margin-right: 10px;"></i>
+                        +91 98765 43210
+                    </div>
+                </div>
+
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="John Doe">
+                        <div class="error-msg">Name is required</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="john@example.com">
+                        <div class="error-msg">Valid email is required</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select id="subject" class="form-control" style="cursor:pointer">
+                            <option value="">Select Subject</option>
+                            <option value="support">General Support</option>
+                            <option value="vendor">Vendor Inquiry</option>
+                            <option value="report">Report Issue</option>
+                        </select>
+                        <div class="error-msg">Please select a subject</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="How can we help?"></textarea>
+                        <div class="error-msg">Message cannot be empty</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">CU <span>Marketplace</span></a>
+                    <p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 20px;">
+                        The one-stop platform for students to find everything they need within the campus ecosystem. Smart, Fast, and Reliable.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#listings">Browse Listings</a></li>
+                        <li><a href="#vendors">Top Vendors</a></li>
+                        <li><a href="#about-faq">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Electronics</a></li>
+                        <li><a href="#">Hostels</a></li>
+                        <li><a href="#">Stationery</a></li>
+                        <li><a href="#">Food & Dining</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Vendor Guidelines</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 CU Marketplace. All rights reserved. Designed with ❤️ for Students.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+            hamburger.querySelector('i').classList.toggle('fa-xmark');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-xmark');
+            });
+        });
+
+        // 2. Navbar Scroll Effect & Active Link Highlight
+        const navbar = document.getElementById('navbar');
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            // Shadow effect
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Active link
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('href').includes(current)) {
+                    li.classList.add('active');
+                }
+            });
+        });
+
+        // 3. Scroll to Listings Helper
+        function scrollTolistings() {
+            const listingsSection = document.getElementById('listings');
+            listingsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Optional: Pre-fill filter based on hero selection
+            const heroCat = document.getElementById('hero-category').value;
+            const heroSearch = document.getElementById('hero-search').value;
+            
+            document.getElementById('category-select').value = heroCat;
+            document.getElementById('search-input').value = heroSearch;
+            filterListings(); // Trigger filter
+        }
+
+        // 4. Animated Stats Counter
+        const stats = document.querySelectorAll('.stat-item h3');
+        let hasAnimated = false;
+
+        const animateStats = () => {
+            stats.forEach(stat => {
+                const target = +stat.getAttribute('data-target');
+                const speed = 200; // lower is slower
+                
+                const updateCount = () => {
+                    const count = +stat.innerText.replace('+','');
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        stat.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        stat.innerText = target + "+";
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Trigger animation when stats section is in view
+        const statsSection = document.getElementById('stats');
+        const observer = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting && !hasAnimated) {
+                animateStats();
+                hasAnimated = true;
+            }
+        });
+        observer.observe(statsSection);
+
+        // 5. Listing Filters (Search + Category + Rating)
+        const searchInput = document.getElementById('search-input');
+        const categorySelect = document.getElementById('category-select');
+        const ratingSelect = document.getElementById('rating-select');
+        const listingsContainer = document.getElementById('listings-container');
+        const cards = document.querySelectorAll('.listing-card');
+        const resultCount = document.getElementById('result-count');
+
+        function filterListings() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const category = categorySelect.value;
+            const rating = parseFloat(ratingSelect.value);
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.querySelector('.listing-title').innerText.toLowerCase();
+                const vendor = card.querySelector('.vendor-name').innerText.toLowerCase();
+                const cardCategory = card.getAttribute('data-category');
+                const cardRating = parseFloat(card.getAttribute('data-rating'));
+
+                const matchesSearch = title.includes(searchTerm) || vendor.includes(searchTerm);
+                const matchesCategory = category === 'all' || cardCategory === category;
+                const matchesRating = cardRating >= rating;
+
+                if (matchesSearch && matchesCategory && matchesRating) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            resultCount.innerText = `Showing ${visibleCount} results`;
+        }
+
+        // Helper for Categories section click
+        function filterByCategory(cat) {
+            categorySelect.value = cat;
+            scrollTolistings();
+        }
+
+        // Event Listeners for Filters
+        searchInput.addEventListener('input', filterListings);
+        categorySelect.addEventListener('change', filterListings);
+        ratingSelect.addEventListener('change', filterListings);
+
+        // 6. FAQ Accordion
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                
+                // Close others
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    if(i !== item) i.classList.remove('active');
+                });
+
+                item.classList.toggle('active');
+            });
+        });
+
+        // 7. Contact Form Validation
+        const form = document.getElementById('contact-form');
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Get inputs
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const subject = document.getElementById('subject');
+            const message = document.getElementById('message');
+
+            // Reset errors
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.form-control').forEach(el => el.style.borderColor = 'var(--border)');
+
+            // Validate Name
+            if(name.value.trim() === '') {
+                showError(name, 'Name is required');
+                isValid = false;
+            }
+
+            // Validate Email
+            if(email.value.trim() === '' || !email.value.includes('@')) {
+                showError(email, 'Valid email is required');
+                isValid = false;
+            }
+
+            // Validate Subject
+            if(subject.value === '') {
+                showError(subject, 'Please select a subject');
+                isValid = false;
+            }
+
+            // Validate Message
+            if(message.value.trim() === '') {
+                showError(message, 'Message cannot be empty');
+                isValid = false;
+            }
+
+            if(isValid) {
+                // Simulate sending
+                const btn = form.querySelector('button');
+                const originalText = btn.innerText;
+                btn.innerText = 'Sending...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    alert('Message sent successfully! We will get back to you soon.');
+                    form.reset();
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        function showError(input, msg) {
+            const formGroup = input.parentElement;
+            const error = formGroup.querySelector('.error-msg');
+            error.innerText = msg;
+            error.style.display = 'block';
+            input.style.borderColor = '#ef4444';
+        }
+
+    </script>
+</body>
+</html>
